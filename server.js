@@ -77,8 +77,8 @@ app.use(
 )
 
 // Custom Middlewares
-const logger = require("./middlewares/logger")
-const errorHandler = require("./middlewares/errorHandler")
+const logger = require("./middleware/logger")
+const errorHandler = require("./middleware/errorHandler")
 app.use(logger)
 
 // Define common data for templates
