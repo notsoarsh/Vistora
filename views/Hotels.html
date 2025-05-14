@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <style>
+        .quattrocento-regular {
+            font-family: "Quattrocento", serif;
+            font-weight: 400;
+        }
+
+        .quattrocento-bold {
+            font-family: "Quattrocento", serif;
+            font-weight: 700;
+        }
+         /* Navbar Style */
+         .navbar {
+            background-color:#fff;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 10px 0;
+        }
+
+        .navbar-brand img {
+            max-width: 150px;
+            height: auto;
+        }
+
+        .navbar-nav .nav-link {
+            color: #000;
+            padding: 0 15px;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #bb9e44;
+        }
+
+        .btn-custom {
+            color: #fff;
+            background-color: #bb9e44;
+            border-radius: 50px;
+            padding: 8px 20px;
+            font-size: 1rem;
+            border: none;
+        }
+
+        .btn-custom:hover {
+            background-color: #9d842e;
+        }
+
+        body {
+            background-color: white;
+
+            font-family: "Quattrocento", serif;
+            
+        }
+        h1 {
+            font-size: 50px;
+            text-align: center;
+        
+        }
+        .heading{
+            margin-top: 70px;
+            /* background-color: beige; */
+            /* margin-bottom: 180px; */
+        }
+        
+        
+        .heading hr{
+            color:rgb(99, 118, 112) ;
+            max-width: 1200px;
+            margin-left: 200px;
+            margin-top: 70px;
+        }
+        .container {
+            padding: 8%;
+            
+        }
+        .row {
+            margin-bottom: 40px;
+        }
+        .card {
+            margin-left: 40px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds shadow to cards*/
+            transition: transform 0.2s, box-shadow 0.2s; /*Adds smooth hover effect */
+        }
+        .card:hover {
+            /* transform: translateY(-10px); Slightly lifts the card on hover */
+            /* box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); Enhances shadow on hover */
+        }
+         /* Footer Style */
+         .footer {
+            background-color: #222;
+            color: #ccc;
+            padding: 40px 0;
+        }
+
+        .footer h5 {
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        .footer a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            color: #888;
+            text-align: center;
+        }
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: #bb9e44;
+            border-radius: 50%;
+        }
+        .carousel-item img {
+            object-fit:cover;
+            height: 90vh; /* Increased height of carousel images */
+        }
+        .btn-primary {
+            background-color: #bb9e44; /* Change primary button color */
+            border-color: #bb9e44;
+            align-items: flex-end;
+        }
+
+        .btn-primary:hover {
+            background-color: #9d842e; /* Change hover color for primary buttons */
+            border-color: #9d842e;
+        }
+        h2.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin: 40px 0;
+    color: #333;
+    position: relative;
+    margin-top: -10px;
+}
+
+h2.section-title::before,
+h2.section-title::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 2px;
+    background: #333;
+    margin: 10px auto;
+}
+
+.hotels-container {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    flex-wrap: wrap;
+    padding: 0 20px;
+}
+
+.hotel-item {
+    width: 390px;
+    text-align: center;
+    margin-bottom: 20px;
+
+}
+
+.hotel-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    /* border-radius: 10px; */
+}
+
+.hotel-title {
+    font-size: 1.25rem;
+    margin: 15px 0;
+    color: #555;
+    font-weight: bold;
+}
+
+.hotel-description {
+    font-size: 0.9rem;
+    color: #666;
+    padding: 0 10px;
+    margin-bottom: 15px;
+}
+
+.hotel-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.btn {
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.book-now {
+    background-color: #b58529;
+    color: #fff;
+}
+
+.book-now:hover {
+    background-color: #8b6721;
+}
+
+.visit-hotel {
+    background-color: transparent;
+    color: #b58529;
+    border: 1px solid #b58529;
+}
+
+.visit-hotel:hover {
+    background-color: #b58529;
+    color: #fff;
+}
+.hospitality-section {
+            font-family: 'Quattrocento', serif;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .hospitality-section .line {
+            width: 500px;
+            height: 2px;
+            background-color: #9d842e;
+            margin: 10px auto;
+        }
+
+        .hospitality-section .title {
+            font-size: 2rem;
+            font-weight: 400;
+            color: #9d842e;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 10px 0;
+        }
+
+        .hospitality-section .subtitle {
+            font-size: 1rem;
+            color: #555;
+            max-width: 700px;
+            margin: 20px auto;
+            line-height: 1.6;
+        }
+        
+    </style>
+</head>
+<header>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <img src="vistora.png" alt="logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- Center-aligned navbar links -->
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">HOME</a></li>
+                    <li class="nav-item"><a class="nav-link" href="rooms">ROOMS/SUITS</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/dining">DINING</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/spa&wellness">SPA & WELLNESS</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contact">CONTACT US</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/about">ABOUT US</a></li>
+                </ul>
+                <!-- Right-aligned buttons -->
+                <div class="d-flex">
+                    <a href="/booking" class="btn btn-custom me-2">BOOK NOW</a>
+                    <a href="/login" class="btn btn-custom">LOGIN</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<body>
+    <div id="hotelCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000"> <!-- Reduced interval to 2000ms -->
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="1 (1).jpg" class="d-block w-100" alt="Hotel Image 1">
+            </div>
+            <div class="carousel-item">
+                <img src="4 (1).jpg" class="d-block w-100" alt="Hotel Image 2">
+            </div>
+            <div class="carousel-item">
+                <img src="5.jpg" class="d-block w-100" alt="Hotel Image 3">
+            </div>
+            <div class="carousel-item">
+                <img src="2.1.jpg" class="d-block w-100" alt="Hotel Image 3">
+            </div>
+            <div class="carousel-item">
+                <img src="17.jpg" class="d-block w-100" alt="Hotel Image 3">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#hotelCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#hotelCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <div class="hospitality-section text-center">
+        <h1 class="title">EXPLORE HOTEL</h1>
+        <div class="line"></div>
+        <p class="subtitle">From a luxury urban sanctum to the halls of royalty, an idyllic resort to a jungle clearing, our 5-star hotels and luxury resorts bring your imagination to life.</p>
+    </div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <img src="hotel1.jpg" class="card-img-top" alt="Cupcake 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Hotel - Marrakech, Morocco</h5>
+                        <p class="card-text">A hidden oasis. Discover the allure of Marrakech with luxurious hammams, vibrant souks, and enchanting riads.</p>
+                        <a href="#" class="btn btn-primary">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <img src="hotel2.jpg" class="card-img-top" alt="Cupcake 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Hotel - Amazon Rainforest, Brazil</h5>
+                        <p class="card-text"> Unforgettable Amazon adventure. Explore the canopy, encounter wildlife, and experience the magic of the Amazon.</p>
+                        <a href="#" class="btn btn-primary">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <img src="hotel3.jpg" class="card-img-top" alt="Cupcake 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Hotel - Santorini, Greece</h5>
+                        <p class="card-text"> Cliffside paradise. Indulge in breathtaking views, private plunge pools, and the romance of the Aegean Sea.</p>
+                        <a href="#" class="btn btn-primary">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <img src="hotel4.jpg" class="card-img-top" alt="Cupcake 4">
+                    <div class="card-body">
+                        <h5 class="card-title">Hotel - Serengeti National Park, Tanzania</h5>
+                        <p class="card-text">Experience thrilling game drives, witness the Great Migration, and enjoy luxurious glamping.</p>
+                        <a href="#" class="btn btn-primary">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <!-- <div class="container my-5">
+        <div class="heading2">
+            <h1 >--- MEMBER RATES ---</h1>
+        </div>
+        <div class="row">
+             
+             <div class="col-md-6 mb-4">
+                <div class="card shadow">
+                    <img src="1.1.jpg" class="card-img-top" alt="Staycation Breakfast">
+                    <div class="card-body">
+                        <h5 class="card-title">ART OF STAYCATION – BREAKFAST INCLUSIVE</h5>
+                        <p class="card-text">
+                            Make this festive season all about unforgettable times with your loved ones. 
+                            Join us to indulge in the art of staycation and enjoy special privileges and...
+                        </p>
+                        <p><strong>Validity:</strong> 05 Dec 2024 - 12 Jan 2025</p>
+                        <a href="#" class="btn btn-primary">BOOK NOW</a>
+                    </div>
+                </div>
+            </div>
+    
+            
+            <div class="col-md-6 mb-4">
+                <div class="card shadow">
+                    <img src="3.jpg" class="card-img-top" alt="Breakfast Inclusive">
+                    <div class="card-body">
+                        <h5 class="card-title">BREAKFAST INCLUSIVE RATE</h5>
+                        <p class="card-text">
+                            Wake up to a symphony of flavors with our delectable breakfast spread and enjoy seamless internet connectivity and flexible cancellation...
+                        </p>
+                        <p><strong>Validity:</strong> Round the Year</p>
+                        <a href="#" class="btn btn-primary">BOOK NOW</a>
+                    </div>
+                </div>
+            </div>
+    
+            
+            <div class="col-md-6 mb-4">
+                <div class="card shadow">
+                    <img src="2.jpg" class="card-img-top" alt="Deluxe Stay">
+                    <div class="card-body">
+                        <h5 class="card-title">DELUXE STAY OFFER</h5>
+                        <p class="card-text">
+                            Experience unmatched luxury with our deluxe stay packages that include personalized services and exquisite dining options.
+                        </p>
+                        <p><strong>Validity:</strong> Limited Time Offer</p>
+                        <a href="#" class="btn btn-primary">BOOK NOW</a>
+                    </div>
+                </div>
+            </div>
+    
+            
+            <div class="col-md-6 mb-4">
+                <div class="card shadow">
+                    <img src="9.jpg" class="card-img-top" alt="Luxury Retreat">
+                    <div class="card-body">
+                        <h5 class="card-title">LUXURY RETREAT PACKAGE</h5>
+                        <p class="card-text">
+                            Escape to serenity with our luxury retreat package, offering exclusive amenities and breathtaking views for a rejuvenating stay.
+                        </p>
+                        <p><strong>Validity:</strong> Year-round</p>
+                        <a href="#" class="btn btn-primary">BOOK NOW</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  -->
+    
+    <section class="hotels-section">
+        <div class="hospitality-section text-center">
+            <h1 class="title">GLOBAL ICON OF INDIAN HOSPITALITY</h1>
+            <div class="line"></div>
+            <p class="subtitle">Enter a realm of storied halls, sophisticated delights, and unrivaled indulgence. Immerse yourself in the grandeur of luxury at our exquisite palaces, hotels, resorts, and safaris.</p>
+        </div>
+        <div class="hotels-container">
+            <div class="hotel-item">
+                <img src="2.1.jpg" alt="Scenic Munnar" class="hotel-image">
+                <h3 class="hotel-title">Scenic, Munnar - Vistora</h3>
+                <p class="hotel-description">
+                    Exuding incomparable beauty and cultural richness, this is the first luxury hotel in I...
+                </p>
+                <div class="hotel-actions">
+                    <a href="#" class="btn book-now">Book Now</a>
+                    <a href="#" class="btn visit-hotel">Visit Hotel</a>
+                </div>
+            </div>
+            <div class="hotel-item">
+                <img src="2.2.jpg" alt="Ekanté Bliss Tirupati" class="hotel-image">
+                <h3 class="hotel-title">Ekanté Bliss, Tirupati - Vistora</h3>
+                <p class="hotel-description">
+                    A sacred realm of soul-stirring hymns and spellbinding skies spilling over towering t...
+                </p>
+                <div class="hotel-actions">
+                    <a href="#" class="btn book-now">Book Now</a>
+                    <a href="#" class="btn visit-hotel">Visit Hotel</a>
+                </div>
+            </div>
+            <div class="hotel-item">
+                <img src="2.3.jpg" alt="Fountain Mahabaleshwar" class="hotel-image">
+                <h3 class="hotel-title">Fountain Mahabaleshwar - Vistora</h3>
+                <p class="hotel-description">
+                    IHCL Selections is an idyllic escape located 121 km from Pune, 231 km from Mumbai and...
+                </p>
+                <div class="hotel-actions">
+                    <a href="#" class="btn book-now">Book Now</a>
+                    <a href="#" class="btn visit-hotel">Visit Hotel</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h5>About Vistora</h5>
+                    <p>Experience luxury and comfort in the heart of the city at Vistora Hotels.</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Rooms & Suites</a></li>
+                        <li><a href="#">Dining</a></li>
+                        <li><a href="#">Spa & Wellness</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Contact</h5>
+                    <p>Email: support@vistora.com</p>
+                    <p>Phone: +1 800 987 6543</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Follow Us</h5>
+                    <a href="#"><i class="bi bi-facebook me-2"></i></a>
+                    <a href="#"><i class="bi bi-twitter me-2"></i></a>
+                    <a href="#"><i class="bi bi-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom mt-4">
+                <p>&copy; 2024 Vistora. All rights reserved.</p>
+                <ul class="list-inline">
+                    <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+                    <li class="list-inline-item"><a href="#">Terms of Use</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

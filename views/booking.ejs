@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quattrocento:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/book.css">
+   
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="/">
+                    <img src="<%= logoPath %>" alt="Vistora Hotels Logo">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <% navLinks.forEach(function(link) { %>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<%= link.url %>"><%= link.text %></a>
+                            </li>
+                        <% }); %>
+                    </ul>
+                    <div class="d-flex">
+                        <% buttons.forEach(function(button) { %>
+                            <a href="<%= button.url %>" class="btn btn-custom <%= button.class %>"><%= button.text %></a>
+                        <% }); %>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="hospitality-section text-center animate-fade-in">
+        <h1 class="title">Book Your Perfect Stay</h1>
+        <div class="line"></div>
+        <p class="subtitle mt-3">Experience luxury and comfort at Vistora Hotels. Find your ideal accommodation and enjoy our premium services.</p>
+        <% if (user) { %>
+            <p class="mt-2">Welcome, <%= user.name %>! You're logged in and ready to book.</p>
+        <% } %>
+    </div>
+
+    <div class="container">
+        <div class="form-container animate-fade-in" style="animation-delay: 0.2s;">
+            <form id="bookingForm" action="/create-booking" method="POST">
+                <div class="form-group mb-3">
+                    <label for="hotelName" class="form-label">Hotel</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-building"></i></span>
+                        <select id="hotelName" name="hotelName" class="form-select" required>
+                            <option value="Vistora Hotel - New York">Vistora Hotel - New York</option>
+                            <option value="Vistora Resort - Miami">Vistora Resort - Miami</option>
+                            <option value="Vistora Suites - Los Angeles">Vistora Suites - Los Angeles</option>
+                            <option value="Vistora Grand - Chicago">Vistora Grand - Chicago</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="roomType" class="form-label">Room Type</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-house-door"></i></span>
+                        <select id="roomType" name="roomType" class="form-select" required>
+                            <option value="Standard Room">Standard Room</option>
+                            <option value="Deluxe Room">Deluxe Room</option>
+                            <option value="Executive Suite">Executive Suite</option>
+                            <option value="Presidential Suite">Presidential Suite</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label for="checkIn" class="form-label">Check-in Date</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-calendar"></i></span>
+                                <input 
+                                    type="date" 
+                                    id="checkIn" 
+                                    name="checkIn" 
+                                    class="form-control" 
+                                    min="<%= today %>" 
+                                    value="<%= locals.formData ? formData.checkIn : '' %>"
+                                    required 
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label for="checkOut" class="form-label">Check-out Date</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-calendar"></i></span>
+                                <input 
+                                    type="date" 
+                                    id="checkOut" 
+                                    name="checkOut" 
+                                    class="form-control" 
+                                    min="<%= tomorrow %>" 
+                                    value="<%= locals.formData ? formData.checkOut : '' %>"
+                                    required 
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group mb-3">
+                            <label for="adults" class="form-label">Adults</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                <select id="adults" name="adults" class="form-select" required>
+                                    <option value="1">1 Adult</option>
+                                    <option value="2" selected>2 Adults</option>
+                                    <option value="3">3 Adults</option>
+                                    <option value="4">4 Adults</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group mb-3">
+                            <label for="children" class="form-label">Children</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-person-heart"></i></span>
+                                <select id="children" name="children" class="form-select">
+                                    <option value="0" selected>0 Children</option>
+                                    <option value="1">1 Child</option>
+                                    <option value="2">2 Children</option>
+                                    <option value="3">3 Children</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group mb-3">
+                            <label for="rooms" class="form-label">Rooms</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-houses"></i></span>
+                                <select id="rooms" name="rooms" class="form-select" required>
+                                    <option value="1" selected>1 Room</option>
+                                    <option value="2">2 Rooms</option>
+                                    <option value="3">3 Rooms</option>
+                                    <option value="4">4 Rooms</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="specialRequests" class="form-label">Special Requests (Optional)</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-chat-left-text"></i></span>
+                        <textarea 
+                            id="specialRequests" 
+                            name="specialRequests" 
+                            class="form-control" 
+                            rows="3" 
+                            placeholder="Any special requests or preferences?"
+                        ><%= locals.formData ? formData.specialRequests : '' %></textarea>
+                    </div>
+                </div>
+
+                <div class="form-footer mt-4">
+                    <div class="row w-100">
+                        <div class="col-md-6">
+                            <% if (locals.errorMessage) { %>
+                                <div class="alert alert-danger" role="alert">
+                                    <%= errorMessage %>
+                                </div>
+                            <% } %>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <button type="submit" class="btn-custom w-100 w-md-auto">
+                                <i class="bi bi-check-circle me-2"></i>Complete Booking
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+      
+    <footer class="footer mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 mb-4">
+                    <h5>About Vistora</h5>
+                    <p>Experience luxury and comfort in the heart of the city at Vistora Hotels. We provide exceptional service and unforgettable experiences.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#"><i class="bi bi-facebook"></i></a>
+                        <a href="#"><i class="bi bi-twitter"></i></a>
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Quick Links</h5>
+<ul class="list-unstyled">
+    <% navLinks.forEach(function(link) { %>
+        <li><a href="<%= link.url %>"><i class="bi bi-chevron-right me-1"></i><%= link.text %></a></li>
+    <% }); %>
+</ul>
+
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Contact</h5>
+                    <p><i class="bi bi-envelope me-2"></i> <%= contactInfo.email %></p>
+                    <p><i class="bi bi-telephone me-2"></i> <%= contactInfo.phone %></p>
+                    <p><i class="bi bi-geo-alt me-2"></i> <%= contactInfo.address %></p>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Newsletter</h5>
+                    <p>Subscribe to our newsletter for special offers and updates.</p>
+                    <form class="mt-3" action="/subscribe" method="POST">
+                        <div class="input-group mb-3">
+                            <input type="email" class="form-control" placeholder="Your Email" aria-label="Email" name="email" required>
+                            <button class="btn btn-custom" type="submit">
+                                <i class="bi bi-send"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom mt-4">
+                <p>&copy; <%= new Date().getFullYear() %> Vistora Hotels. All rights reserved.</p>
+                <ul class="list-inline mt-2">
+    <% footerLinks.forEach(function(link) { %>
+        <li class="list-inline-item"><a href="<%= link.url %>"><%= link.text %></a></li>
+    <% }); %>
+</ul>
+
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set minimum dates for check-in and check-out
+            const checkinInput = document.getElementById('checkIn');
+            const checkoutInput = document.getElementById('checkOut');
+            
+            // Update checkout min date when checkin changes
+            checkinInput.addEventListener('change', function() {
+                const checkinDate = new Date(this.value);
+                const nextDay = new Date(checkinDate);
+                nextDay.setDate(checkinDate.getDate() + 1);
+                
+                const year = nextDay.getFullYear();
+                const month = String(nextDay.getMonth() + 1).padStart(2, '0');
+                const day = String(nextDay.getDate()).padStart(2, '0');
+                
+                checkoutInput.min = `${year}-${month}-${day}`;
+                
+                // If current checkout date is before new min date, update it
+                if (new Date(checkoutInput.value) <= checkinDate) {
+                    checkoutInput.value = `${year}-${month}-${day}`;
+                }
+            });
+            
+            // Form validation
+            const bookingForm = document.getElementById('bookingForm');
+            bookingForm.addEventListener('submit', function(event) {
+                const checkinDate = new Date(checkinInput.value);
+                const checkoutDate = new Date(checkoutInput.value);
+                
+                if (checkoutDate <= checkinDate) {
+                    event.preventDefault();
+                    alert('Check-out date must be after check-in date');
+                }
+            });
+            
+            // Navbar scroll effect
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 50) {
+                    navbar.style.padding = '5px 0';
+                    navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+                } else {
+                    navbar.style.padding = '10px 0';
+                    navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.05)';
+                }
+            });
+        });
+    </script>
+
+<!-- Payment Modal -->
+<div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="paymentModalLabel">Complete Your Payment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="payment-form">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="cardName" class="form-label">Cardholder Name</label>
+                            <input type="text" class="form-control" id="cardName" placeholder="Name on card" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="cardNumber" class="form-label">Card Number</label>
+                            <input type="text" class="form-control" id="cardNumber" placeholder="XXXX XXXX XXXX XXXX" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="expiryMonth" class="form-label">Expiry Month</label>
+                            <select class="form-select" id="expiryMonth" required>
+                                <option value="">Month</option>
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                                <option value="05">05</option>
+                                <option value="06">06</option>
+                                <option value="07">07</option>
+                                <option value="08">08</option>
+                                <option value="09">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="expiryYear" class="form-label">Expiry Year</label>
+                            <select class="form-select" id="expiryYear" required>
+                                <option value="">Year</option>
+                                <option value="2024">2024</option>
+                                <option value="2025">2025</option>
+                                <option value="2026">2026</option>
+                                <option value="2027">2027</option>
+                                <option value="2028">2028</option>
+                                <option value="2029">2029</option>
+                                <option value="2030">2030</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="cvv" class="form-label">CVV</label>
+                            <input type="text" class="form-control" id="cvv" placeholder="XXX" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="billingAddress" class="form-label">Billing Address</label>
+                            <input type="text" class="form-control" id="billingAddress" placeholder="Street address" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="billingZip" class="form-label">Zip/Postal Code</label>
+                            <input type="text" class="form-control" id="billingZip" placeholder="Zip code" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="billingCity" class="form-label">City</label>
+                            <input type="text" class="form-control" id="billingCity" placeholder="City" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="billingCountry" class="form-label">Country</label>
+                            <select class="form-select" id="billingCountry" required>
+                                <option value="">Select Country</option>
+                                <option value="US">United States</option>
+                                <option value="CA">Canada</option>
+                                <option value="UK">United Kingdom</option>
+                                <option value="AU">Australia</option>
+                                <option value="IN">India</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-custom" id="confirmPayment">Confirm Payment</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Payment Success Modal -->
+<div class="modal fade" id="paymentSuccessModal" tabindex="-1" aria-labelledby="paymentSuccessModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title" id="paymentSuccessModalLabel">Payment Successful!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
+                <h4 class="mt-3">Thank You for Your Booking</h4>
+                <p>Your booking has been confirmed. You can view your booking details in your dashboard.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="/api/dashboard" class="btn btn-custom">Go to Dashboard</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Set minimum dates for check-in and check-out
+        const checkinInput = document.getElementById('checkIn');
+        const checkoutInput = document.getElementById('checkOut');
+        
+        // Update checkout min date when checkin changes
+        checkinInput.addEventListener('change', function() {
+            const checkinDate = new Date(this.value);
+            const nextDay = new Date(checkinDate);
+            nextDay.setDate(checkinDate.getDate() + 1);
+            
+            const year = nextDay.getFullYear();
+            const month = String(nextDay.getMonth() + 1).padStart(2, '0');
+            const day = String(nextDay.getDate()).padStart(2, '0');
+            
+            checkoutInput.min = `${year}-${month}-${day}`;
+            
+            // If current checkout date is before new min date, update it
+            if (new Date(checkoutInput.value) <= checkinDate) {
+                checkoutInput.value = `${year}-${month}-${day}`;
+            }
+        });
+        
+        // Form validation
+        const bookingForm = document.getElementById('bookingForm');
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.padding = '5px 0';
+                navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            } else {
+                navbar.style.padding = '10px 0';
+                navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.05)';
+            }
+        });
+
+        const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
+        const paymentSuccessModal = new bootstrap.Modal(document.getElementById('paymentSuccessModal'));
+        const confirmPaymentBtn = document.getElementById('confirmPayment');
+        
+        // Prevent default form submission and show payment modal instead
+        bookingForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const checkinDate = new Date(checkinInput.value);
+            const checkoutDate = new Date(checkoutInput.value);
+            
+            if (checkoutDate <= checkinDate) {
+                alert('Check-out date must be after check-in date');
+                return;
+            }
+            
+            // Show payment modal
+            paymentModal.show();
+        });
+        
+        // Handle payment confirmation
+        confirmPaymentBtn.addEventListener('click', function() {
+            // Validate payment form
+            const cardName = document.getElementById('cardName').value;
+            const cardNumber = document.getElementById('cardNumber').value;
+            const cvv = document.getElementById('cvv').value;
+            const expiryMonth = document.getElementById('expiryMonth').value;
+            const expiryYear = document.getElementById('expiryYear').value;
+            
+            if (!cardName || !cardNumber || !cvv || !expiryMonth || !expiryYear) {
+                alert('Please fill in all required payment fields');
+                return;
+            }
+            
+            // Hide payment modal
+            paymentModal.hide();
+            
+            // Submit the form
+            bookingForm.submit();
+            
+            // Show success modal after a short delay
+            setTimeout(() => {
+                paymentSuccessModal.show();
+            }, 1000);
+        });
+    });
+</script>
+</body>
+</html>
